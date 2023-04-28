@@ -76,6 +76,7 @@ body.inverted {
     border:1px solid #fff;
     pointer-events:none;
     z-index:100000000000000;
+    box-shadow:1px 1px 5px #000;
 }
 
 #middle {
@@ -166,6 +167,23 @@ body.inverted {
     height:64px;
 }
 
+#leftPanel .button {
+    width:100%;
+    height:32px;
+    font-weight: bold;
+}
+
+.button {
+    background-color:#fff;
+}
+
+.button:hover {
+    background-color:#ddd;
+}
+
+.button:active {
+    background-color:#ccc;
+}
 
 #store {
     position:relative;

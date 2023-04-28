@@ -22,6 +22,8 @@
     </div>
     <div id="game">
         <div id="rightPanel">
+            <div id="shop">SHOP</div>
+            <div class="tabcontent" id="shop"></div>
             <div id="store"></div>
         </div>
         <div id="middle">
@@ -33,14 +35,19 @@
             <div id="bigTree" onmouseup="ClickTree();"></div>
         </div>
         <div id="leftPanel">
-            <div id="buttonContainer">
-                <button class="button" onclick="Reset();">Reset</button>
+            <div class="tabcontent">
+                <span class="menu" onclick="Save();">Save</span>
+                <span class="menu" onclick="exportSave();">Export save</span>
+                <span class="menu" onclick="importSave();">Import save</span>
+                <span class="menu" onclick="Reset();">Reset</span>
                 <br><br>
-                <button class="button" onclick="exportSave();">Export save</button>
-                <button class="button" onclick="importSave();">Import save</button>
+                <span class="menu" id="toggleNumbers" onclick="ToggleNumbers();">Numbers On</span>
+                <!--<span class="menu" id="toggleFlashing" onclick="ToggleFlashing();">Flashing On</span>-->
+                <span class="menu" id="toggleParticles" onclick="ToggleParticles();">Particles On</span>
             </div>
         </div>
         <div id="treeFloor"></div>
+        <div id="pops"></div>
     </div>
     <script src="main64.js"></script>
 </body>

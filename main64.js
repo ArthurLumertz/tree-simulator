@@ -1,9 +1,9 @@
 function l(what) {return document.getElementById(what);}
 
 Game=l('game');
-Version='1.2.5';
+Version='1.2.5 pre-release';
 l('version').innerHTML=Version;
-l('running-version').title='Running Tree Simulator v.'+Version+' Out: Apr, 27 2023';
+l('running-version').title='Running Tree Simulator v.'+Version+'d: Apr, 27 2023';
 console.log('== are you here to hack in trees? ==')
 
 function Beautify(what) { //turns 9999999 into 9,999,999
@@ -31,12 +31,34 @@ Tridents=0;
 Stormcallers=0;
 
 TpS=0;
+CpS=1;
 
 StoreToRebuild=0;
+UpgradesToRebuild=0;
+
+NumbersOn=1;
+FlashingOn=1;
+ParticlesOn=1;
+
 T=0;
 Loaded=0;
 
 AppleApocalypse=1;
+
+ToggleNumbers=function() {
+    if(NumbersOn) {NumbersOn=0;l('toggleNumbers').innerHTML='Numbers Off';}
+    else if(!NumbersOn) {NumbersOn=1;l('toggleNumbers').innerHTML='Numbers On';}
+}
+
+ToggleFlashing=function() {
+    if(FlashingOn) {FlashingOn=0;l('toggleFlashing').innerHTML='Flashing Off';}
+    else if(!FlashingOn) {FlashingOn=1;l('toggleFlashing').innerHTML='Flashing On';}
+}
+
+ToggleParticles=function() {
+    if(ParticlesOn) {ParticlesOn=0;l('toggleParticles').innerHTML='Particles Off';}
+    else if(!ParticlesOn) {ParticlesOn=1;l('toggleParticles').innerHTML='Particles On';}
+}
 
 importSave=function() {
     var save=prompt('Please paste in the text that was given to you on save export.','');
@@ -45,7 +67,7 @@ importSave=function() {
 }
 
 exportSave=function() {
-    var save=prompt('Copypaste this text and keep it somewhere safe! (yes, it\'s easy to edit - but remember : cheated cookies taste terrible!)',MakeSaveString());
+    var save=prompt('Copypaste this text and keep it somewhere safe! (yes, it\'s easy to edit - but remember : cheated trees taste terrible!)',MakeSaveString());
 }
 
 function ImportResponse(response) {
@@ -64,7 +86,8 @@ function ImportResponse(response) {
       Stormcallers = Math.min(1000, parseInt(r[20]));Buyables['Stormcaller'].price = parseInt(r[21]);
       StoreToRebuild = 1;
     }
-  }
+    new Pop('treeFloor','Imported.');
+}
   
 Reset=function() {
     if(confirm('Do you REALLY want to start over?')) {
@@ -96,9 +119,11 @@ SaveTimer=30*60;
 Save=function() {
     var str=MakeSaveString();
     var now=new Date();
-    now.setFullYear(now.getFullYear()+5);
+    now.setFullYear(now.getFullYear()+5);//5 years... wow
     str='TreeSimulatorSave='+escape(str)+'; expires='+now.toUTCString+';';
     document.cookie=str;
+    if (document.cookie.indexOf('TreeSimulatorSave')<0) Pop('treeFloor','<span style="color:#f00;">Error while saving.<br>Export your save instead!</span>');
+    else Pop('treeFloor','Saved');
 
     SaveTimer=30*60;
 }
@@ -108,6 +133,8 @@ SaveResponse=function(response) {
     if(r[0]=='1'&&parseFloat(r[1])>Version) {
         alert('New version available '+r[1]+'.<br>Please refresh to see it!')
     }
+    if (r[0]=='1') new Pop('treeFloor','Saved');
+	else new Pop('treeFloor','<span style="color:#f00;">Error while saving</span>');
 }
 
 Load=function() {
@@ -132,13 +159,20 @@ LoadResponse=function(response) {
       Tridents = Math.min(1000, parseInt(r[18]));Buyables['Trident'].price = parseInt(r[19]);
       Stormcallers = Math.min(1000, parseInt(r[20]));Buyables['Stormcaller'].price = parseInt(r[21]);
       StoreToRebuild = 1;
+      UpgradesToRebuild=1;
     }
+    new Pop('treeFloor','Loaded.');
     Loaded=1;
     Main();
 }
 
+var treeClick;
 ClickTree=function() {
-    Trees++;
+    Trees+=CpS;
+    if(treeClick) treeClick.remove();
+    treeClick=new Audio('snd/click1.wav');
+    treeClick.play();
+    if (Pops.length<260 && NumbersOn) new Pop('bigTree','+'+CpS);
 }
 
 RebuildStore=function() {
@@ -160,13 +194,23 @@ RebuildStore=function() {
 	StoreToRebuild=0;
 }
 
+RebuildUpgrades=function() {
+    var str='';
+    for(var i in Upgrades) {
+        str+='<div class="upgrades" id="buy'+Upgrades[i].name+'" onclick="BuyUpgrade(\''+Upgrades[i].name+'\');" style="background-image:url(img/'+Upgrades[i].pic+'.png)">';
+    }
+    l('shop').innerHTML+=str;
+    UpgradesToRebuild=0;
+}
 
+var buyClick=new Audio('snd/buy1.wav');
 Buyables=[];
-Buyable=function(name,desc,pic,price,func) {
+Buyable=function(name,desc,pic,price,tps,func) {
     this.name=name;
     this.desc=desc;
     this.pic=pic;
     this.price=price;
+    this.tps=tps;
     this.func=func;
     Buyables[name]=this;
 
@@ -177,25 +221,9 @@ Buyable=function(name,desc,pic,price,func) {
             this.func(1);
             StoreToRebuild=1;
 
-            if(this.name=='Apple') {
-                TpS+=0.1;
-            } else if(this.name=='Truck') {
-                TpS+=1;
-            } else if(this.name=='Mine') {
-                TpS+=5;
-            } else if(this.name=='Factory') {
-                TpS+=10;
-            } else if(this.name=='Machine') {
-                TpS+=15;
-            } else if(this.name=='Anti Matter') {
-                TpS+=20;
-            } else if(this.name=='Luck Maker') {
-                TpS+=30;
-            } else if(this.name=='Trident') {
-                TpS+=60;
-            } else if(this.name='StormCallers') {
-                TpS+=80;
-            }
+            buyClick.play();
+
+            TpS+=this.tps;
         }
     }
     StoreToRebuild=1;
@@ -205,16 +233,47 @@ Buy=function(what) {
     Buyables[what].Buy();
 }
 
+Upgrades=[];
+Upgrade=function(name,desc,pic,price) {
+    this.name=name;
+    this.desc=desc;
+    this.pic=pic;
+    this.price=price;
+    Upgrades[name]=this;
 
-new Buyable('Apple','Grows trees from apple seeds.','apple',15,function(){Apples++;});
-new Buyable('Truck','Collects broken trees.','truck',100,function(){Trucks++;});
-new Buyable('Mine','Grabs trees from the underworld.','mine',500,function(){Mines++;});
-new Buyable('Factory','Plants trees and breaks them.','factory',1500,function(){Factories++;});
-new Buyable('Machine','Prints trees from thin air.','machine',2500,function(){Machines++;});
-new Buyable('Anti Matter','Turns black matter into trees.','antimatter',6000,function(){AntiMatters++;});
-new Buyable('Luck Maker','Grows trees from apple seeds.','luckmaker',12000,function(){LuckMakers++;});
-new Buyable('Trident','Kills tree entities lost in the sea.','trident',20000,function(){Tridents++;});
-new Buyable('Stormcaller','Plants trees when there is a storm.','stormcaller',28000,function(){Stormcallers++;});
+    this.Buy=function() {
+        if(Trees>=this.price) {
+            Trees-=this.price;
+            l('name').display='none';
+            UpgradesToRebuild=1;
+        }
+    }
+    UpgradesToRebuild=1;
+}
+
+
+new Buyable('Apple','Grows trees from apple seeds.','apple',15,0.1,function(){Apples++;});
+new Buyable('Truck','Collects broken trees.','truck',100,1,function(){Trucks++;});
+new Buyable('Mine','Grabs trees from the underworld.','mine',500,5,function(){Mines++;});
+new Buyable('Factory','Plants trees and breaks them.','factory',1500,10,function(){Factories++;});
+new Buyable('Machine','Prints trees from thin air.','machine',2500,15,function(){Machines++;});
+new Buyable('Anti Matter','Turns black matter into trees.','antimatter',6000,20,function(){AntiMatters++;});
+new Buyable('Luck Maker','Grows trees from apple seeds.','luckmaker',12000,30,function(){LuckMakers++;});
+new Buyable('Trident','Kills tree entities lost in the sea.','trident',20000,60,function(){Tridents++;});
+new Buyable('Stormcaller','Plants trees when there is a storm.','stormcaller',28000,80,function(){Stormcallers++;});
+
+// TOOD:
+//new Upgrade('1 Apple upgrade','Plants trees when there is a storm.','apple',28000);
+
+Pops=[];
+Pop=function(el,str) {
+	this.el=el;
+	this.str=str;
+	this.life=0;
+	this.offx=Math.floor(Math.random()*20-10);
+	this.offy=Math.floor(Math.random()*20-10);
+	Pops.push(this);
+}
 
 var appleImg = document.createElement('img');
 appleImg.src = 'img/apple.png';
@@ -227,39 +286,38 @@ appleImg.style.webkitUserSelect='none';
 
 
 
-spawnApple=function() {
-    var apple=appleImg.cloneNode();
-    apple.style.top='-50px';
-    apple.style.left = Math.random()*window.innerWidth +'px'; 
+spawnApple=function () {
+    var apple = appleImg.cloneNode();
+    apple.style.top = '-50px';
+    apple.style.left = Math.random() * window.innerWidth + 'px';
     document.body.appendChild(apple);
 }
-
 var appleTimer;
-function updateApples() {
-  var apples = document.getElementsByTagName('img');
-  for (var i = 0; i < apples.length; i++) {
-    var apple = apples[i];
-    var top = parseFloat(apple.style.top);
-    if (top < window.innerHeight) {
-      apple.style.top = top + 10 + 'px'; // update the vertical position
-    } else {
-      document.body.removeChild(apple); // remove the apple element when it falls off the screen
+updateApples=function() {
+    var apples = document.getElementsByTagName('img');
+    for (var i = 0; i < apples.length; i++) {
+        var apple = apples[i];
+        var top = parseFloat(apple.style.top);
+        if (top < window.innerHeight) {
+            apple.style.top = top + 10 + 'px'; // update the vertical position
+        } else {
+            document.body.removeChild(apple); // remove the apple element when it falls off the screen
+        }
     }
-  }
 }
 
-function checkTrees() {
-        if (Trees>=100&&Apples>=1&&!appleTimer) {
+checkApples=function() {
+    if (Trees >= 100 && Apples >= 1 && !appleTimer) {
         appleTimer = setInterval(spawnApple, Trees*2);
-        setInterval(updateApples, 100); 
-        } else if (Trees < 100 && appleTimer) {
+        setInterval(updateApples, 100);
+    } else if (Trees < 100 && appleTimer) {
         clearInterval(appleTimer);
         appleTimer = null;
         var apples = document.getElementsByTagName('img');
         for (var i = 0; i < apples.length; i++) {
             document.body.removeChild(apples[i]);
         }
-        }
+    }
 }
 
 
@@ -269,7 +327,33 @@ Main=function() {
         RebuildStore();
         StoreToRebuild=0;
     }
-    checkTrees();
+
+    if(UpgradesToRebuild) {
+        RebuildUpgrades();
+        UpgradesToRebuild=0;
+    }
+
+    if(ParticlesOn) {
+        checkApples();
+    } else {
+        clearInterval(appleTimer);
+        appleTimer = null;
+        var apples = document.getElementsByTagName('img');
+        for (var i = 0; i < apples.length; i++) {
+            document.body.removeChild(apples[i]);
+        }
+    }
+
+    for (var i in Pops) {
+		var rect=l(Pops[i].el).getBoundingClientRect();
+		var x=Math.floor((rect.left+rect.right)/2+Pops[i].offx)-100;
+		var y=Math.floor((rect.top+rect.bottom)/2-Math.pow(Pops[i].life/100,0.5)*100+Pops[i].offy)-10;
+		var opacity=1-(Math.max(Pops[i].life,80)-80)/20;
+		str+='<div class="pop" style="position:absolute;left:'+x+'px;top:'+y+'px;opacity:'+opacity+';">'+Pops[i].str+'</div>';
+		Pops[i].life+=2;
+		if (Pops[i].life>=100) Pops.splice(i,1);
+	}
+	l('pops').innerHTML=str;
 
     for(var i in Buyables) {
         if (Trees>=Buyables[i].price) l('buy'+Buyables[i].name).className=''; else l('buy'+Buyables[i].name).className='grayed';
@@ -289,13 +373,14 @@ Main=function() {
     else l('treeFloor').classList.add('large');
 
     var str='';
-    if(Trees<50) str='People like the taste of your apples.';
+    if(Trees<50) str='People like the taste of<br>your apples.';
     else if(Trees<150) str='You are getting some customers<br>around the neighborhood.';
     else if(Trees<500) str='People say your trees are very<br>good quality.';
     else if(Trees<1000) str='Companies are interested in your<br>wood.';
     else if(Trees<5000) str='People from far away come to see<br>your trees.';
     else if(Trees<10000) str='News: oxygen is increased by<br>20% this year.';
     else if(Trees<20000) str='News: trucks are everywhere.<br>Even in my backyard!';
+    else if(Trees<30000) str='People are complaining about<br>trees going into their houses.';
     else str='Oh gosh.<br>You gotta lot of trees!';
     l('comment').innerHTML=str;
 

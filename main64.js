@@ -86,7 +86,7 @@ MakeSaveString=function() {
     parseInt(Factories)+'|'+parseInt(Buyables['Factory'].price)+'|'+
     parseInt(Machines)+'|'+parseInt(Buyables['Machine'].price)+'|'+
     parseInt(AntiMatters)+'|'+parseInt(Buyables['Anti Matter'].price)+'|'+
-    parseInt(LuckMakers)+'|'+parseInt(Buyables['Luck Maker'].price),
+    parseInt(LuckMakers)+'|'+parseInt(Buyables['Luck Maker'].price)+'|'+
     parseInt(Tridents)+'|'+parseInt(Buyables['Trident'].price)+'|'+
     parseInt(Stormcallers)+'|'+parseInt(Buyables['Stormcaller'].price);
     return str;

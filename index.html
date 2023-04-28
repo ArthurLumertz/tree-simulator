@@ -1,3 +1,8 @@
+<!--
+    are you looking at the source code cheater?
+    :()
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,11 +33,11 @@
             <div id="bigTree" onmouseup="ClickTree();"></div>
         </div>
         <div id="leftPanel">
-            <div>
-                <button onclick="Reset();">Wipe save</button>
-                <br>
-                <button onclick="saveToSlot(1);">Save to slot 1</button>
-                <button onclick="loadFromSlot(1);">Load from slot 1</button>
+            <div id="buttonContainer">
+                <button class="button" onclick="Reset();">Reset</button>
+                <br><br>
+                <button class="button" onclick="exportSave();">Export save</button>
+                <button class="button" onclick="importSave();">Import save</button>
             </div>
         </div>
         <div id="treeFloor"></div>

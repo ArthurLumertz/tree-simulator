@@ -9,7 +9,7 @@ body {
     background-size:cover;
     user-select: none;
     -webkit-user-drag: none;
-    overflow: hidden;
+    overflow:hidden;
 }
 
 body.inverted {
@@ -37,7 +37,7 @@ body.inverted {
     padding:3px;
     width:100%;
     height:17px;
-    z-index:1000;
+    z-index:10000000;
 }
 
 #footer>a {
@@ -69,7 +69,7 @@ body.inverted {
 .tooltip {
     position: absolute;
     z-index: 1;
-    background-color: black;
+    background:url(img/darkNoise.jpg),#000;
     color: white;
     width:170px;
     padding: 10px;
@@ -97,7 +97,7 @@ body.inverted {
     box-shadow:0px 0px 5px #000 inset;
     text-shadow:1px 1px 2px #000;
     text-align: center;
-    z-index:1000;
+    z-index:10000000;
 }
 
 #treeContainer {
@@ -111,7 +111,7 @@ body.inverted {
     top:-50px;
     text-shadow:1px 1px 2px #000;
     font-weight:bold;
-    z-index:1000;
+    z-index:10000000;
 }
 
 #trees,#tps {
@@ -124,7 +124,7 @@ body.inverted {
     width:128px;
     height:128px;
     left:-64px;
-    top:10px;
+    top:50px;
     background:url(img/tree.png) no-repeat;
     z-index:1000;
     animation:all 0.2s ease-in-out;
@@ -143,7 +143,7 @@ body.inverted {
     position:absolute;
     top:25px;
     right:0;
-    background-color:#333;
+    background:url(img/darkNoise.jpg),#333;
     border-left:1px solid #000;
     height:100vh;
     z-index:1000;
@@ -154,7 +154,7 @@ body.inverted {
     position:absolute;
     top:25px;
     left:0;
-    background-color:#333;
+    background:url(img/darkNoise.jpg),#333;
     border-left:1px solid #000;
     height:100vh;
     z-index:1000;
@@ -165,24 +165,6 @@ body.inverted {
     position:relative;
     width:256px;
     height:64px;
-}
-
-#leftPanel .button {
-    width:100%;
-    height:32px;
-    font-weight: bold;
-}
-
-.button {
-    background-color:#fff;
-}
-
-.button:hover {
-    background-color:#ddd;
-}
-
-.button:active {
-    background-color:#ccc;
 }
 
 #store {
@@ -228,6 +210,7 @@ body.inverted {
     bottom:0;
     width:100%;
     height:32px;
+    z-index:100;
 }
 
 moni {
@@ -244,3 +227,49 @@ moni {
 #treeFloor.small { background:url(img/treefloor_small.png) repeat-x; }
 #treeFloor.medium { background:url(img/treefloor_medium.png) repeat-x; }
 #treeFloor.large { background:url(img/treefloor_large.png) repeat-x; }
+
+.menu {
+    font-size:16px;
+    background:rgba(255,255,255,0.5);
+    padding:5px;
+    color:#fff;
+    display:block;
+    cursor:pointer;
+    text-shadow:0px 0px 3px #000;
+    font-weight:bold;
+}
+
+.menu:hover {
+    background:rgba(255,255,255,0.75);
+}
+
+#shop {
+    font-size:2em;
+    font-weight:bold;
+    text-align: center;
+    padding:10px 0px 0px 0px;
+}
+
+#shop>div {
+    position:relative;
+    background-size:32px;
+    z-index: 100000000000000000;
+}
+
+#pops {
+    position:absolute;
+    left:0px;
+    top:0px;
+    z-index:1000000;
+    pointer-events:none;
+}
+
+.pop {
+    font-weight: bold;
+    color:#fff;
+    width:200px;
+    height:20px;
+    font-size:20px;
+    text-align: center;
+    text-shadow:0px 0px 5px #000;
+}

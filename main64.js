@@ -3,8 +3,8 @@ function l(what) {return document.getElementById(what);}
 Game=l('game');
 Version='1.2.5 pre-release';
 l('version').innerHTML=Version;
-l('running-version').title='Running Tree Simulator v.'+Version+'d: Apr, 27 2023';
-console.log('== are you here to hack in trees? ==')
+l('running-version').title='Running<br>Tree Simulator v.'+Version+'<br>Out: Apr, 27 2023';
+console.log('== are you here to hack in trees? ==');
 
 function Beautify(what) { //turns 9999999 into 9,999,999
 	var str='';
@@ -29,12 +29,14 @@ AntiMatters=0;
 LuckMakers=0;
 Tridents=0;
 Stormcallers=0;
+Rockets=0;
 
 TpS=0;
+TreesClicked=0;
 CpS=1;
 
 StoreToRebuild=0;
-UpgradesToRebuild=0;
+AchievementsToRebuild=0;
 
 NumbersOn=1;
 FlashingOn=1;
@@ -73,18 +75,21 @@ exportSave=function() {
 function ImportResponse(response) {
     var r = response.split('|');
     if (response != '0' && response && r[0] == '1') {
-      Trees = parseInt(r[2]);
-      TpS=parseInt(r[3]);
-      Apples = Math.min(1000, parseInt(r[4]));Buyables['Apple'].price = parseInt(r[5]);
-      Trucks = Math.min(1000, parseInt(r[6]));Buyables['Truck'].price = parseInt(r[7]);
-      Mines = Math.min(1000, parseInt(r[8]));Buyables['Mine'].price = parseInt(r[9]);
-      Factories = Math.min(1000, parseInt(r[10]));Buyables['Factory'].price = parseInt(r[11]);
-      Machines = Math.min(1000, parseInt(r[12]));Buyables['Machine'].price = parseInt(r[13]);
-      AntiMatters = Math.min(1000, parseInt(r[14]));Buyables['Anti Matter'].price = parseInt(r[15]);
-      LuckMakers = Math.min(1000, parseInt(r[16]));Buyables['Luck Maker'].price = parseInt(r[17]);
-      Tridents = Math.min(1000, parseInt(r[18]));Buyables['Trident'].price = parseInt(r[19]);
-      Stormcallers = Math.min(1000, parseInt(r[20]));Buyables['Stormcaller'].price = parseInt(r[21]);
-      StoreToRebuild = 1;
+        Trees = parseInt(r[2]);
+        TpS=parseInt(r[3]);
+        TreesClicked=parseInt(r[4]);
+        l('factoryName').innerHTML=r[5];
+        Apples = Math.min(1000, parseInt(r[6]));Buyables['Apple'].price = parseInt(r[7]);
+        Trucks = Math.min(1000, parseInt(r[8]));Buyables['Truck'].price = parseInt(r[9]);
+        Mines = Math.min(1000, parseInt(r[10]));Buyables['Mine'].price = parseInt(r[11]);
+        Factories = Math.min(1000, parseInt(r[12]));Buyables['Factory'].price = parseInt(r[13]);
+        Machines = Math.min(1000, parseInt(r[14]));Buyables['Machine'].price = parseInt(r[15]);
+        AntiMatters = Math.min(1000, parseInt(r[16]));Buyables['Anti Matter'].price = parseInt(r[17]);
+        LuckMakers = Math.min(1000, parseInt(r[18]));Buyables['Luck Maker'].price = parseInt(r[19]);
+        Tridents = Math.min(1000, parseInt(r[20]));Buyables['Trident'].price = parseInt(r[21]);
+        Stormcallers = Math.min(1000, parseInt(r[22]));Buyables['Stormcaller'].price = parseInt(r[23]);
+        StoreToRebuild=1;
+        AchievementsToRebuild=1;
     }
     new Pop('treeFloor','Imported.');
 }
@@ -103,6 +108,8 @@ ResetResponse=function() {
 MakeSaveString=function() {
     var str='';
     str+=Version+'|'+parseInt(Trees)+'|'+parseInt(TpS)+'|'+
+    parseInt(TreesClicked)+'|'+
+    l('factoryName').innerHTML+'|'+
     parseInt(Apples)+'|'+parseInt(Buyables['Apple'].price)+'|'+
     parseInt(Trucks)+'|'+parseInt(Buyables['Truck'].price)+'|'+
     parseInt(Mines)+'|'+parseInt(Buyables['Mine'].price)+'|'+
@@ -147,19 +154,21 @@ Load=function() {
 LoadResponse=function(response) {
     var r = response.split('|');
     if (response != '0' && response && r[0] == '1') {
-      Trees = parseInt(r[2]);
-      TpS=parseInt(r[3]);
-      Apples = Math.min(1000, parseInt(r[4]));Buyables['Apple'].price = parseInt(r[5]);
-      Trucks = Math.min(1000, parseInt(r[6]));Buyables['Truck'].price = parseInt(r[7]);
-      Mines = Math.min(1000, parseInt(r[8]));Buyables['Mine'].price = parseInt(r[9]);
-      Factories = Math.min(1000, parseInt(r[10]));Buyables['Factory'].price = parseInt(r[11]);
-      Machines = Math.min(1000, parseInt(r[12]));Buyables['Machine'].price = parseInt(r[13]);
-      AntiMatters = Math.min(1000, parseInt(r[14]));Buyables['Anti Matter'].price = parseInt(r[15]);
-      LuckMakers = Math.min(1000, parseInt(r[16]));Buyables['Luck Maker'].price = parseInt(r[17]);
-      Tridents = Math.min(1000, parseInt(r[18]));Buyables['Trident'].price = parseInt(r[19]);
-      Stormcallers = Math.min(1000, parseInt(r[20]));Buyables['Stormcaller'].price = parseInt(r[21]);
-      StoreToRebuild = 1;
-      UpgradesToRebuild=1;
+        Trees = parseInt(r[2]);
+        TpS=parseInt(r[3]);
+        TreesClicked=parseInt(r[4]);
+        l('factoryName').innerHTML=r[5];
+        Apples = Math.min(1000, parseInt(r[6]));Buyables['Apple'].price = parseInt(r[7]);
+        Trucks = Math.min(1000, parseInt(r[8]));Buyables['Truck'].price = parseInt(r[9]);
+        Mines = Math.min(1000, parseInt(r[10]));Buyables['Mine'].price = parseInt(r[11]);
+        Factories = Math.min(1000, parseInt(r[12]));Buyables['Factory'].price = parseInt(r[13]);
+        Machines = Math.min(1000, parseInt(r[14]));Buyables['Machine'].price = parseInt(r[15]);
+        AntiMatters = Math.min(1000, parseInt(r[16]));Buyables['Anti Matter'].price = parseInt(r[17]);
+        LuckMakers = Math.min(1000, parseInt(r[18]));Buyables['Luck Maker'].price = parseInt(r[19]);
+        Tridents = Math.min(1000, parseInt(r[20]));Buyables['Trident'].price = parseInt(r[21]);
+        Stormcallers = Math.min(1000, parseInt(r[22]));Buyables['Stormcaller'].price = parseInt(r[23]);
+        StoreToRebuild=1;
+        AchievementsToRebuild=1;
     }
     new Pop('treeFloor','Loaded.');
     Loaded=1;
@@ -169,6 +178,7 @@ LoadResponse=function(response) {
 var treeClick;
 ClickTree=function() {
     Trees+=CpS;
+    TreesClicked++;
     if(treeClick) treeClick.remove();
     treeClick=new Audio('snd/click1.wav');
     treeClick.play();
@@ -188,19 +198,20 @@ RebuildStore=function() {
         else if(Buyables[i].name=='Luck Maker') amount=LuckMakers;
         else if(Buyables[i].name=='Trident') amount=Tridents;
         else if(Buyables[i].name='Stormcaller') amount=Stormcallers;
+        // else if(Buyables[i].name='Rocket') amount=Rockets;
         str+='<div id="buy'+Buyables[i].name+'" onclick="Buy(\''+Buyables[i].name+'\');" style="'+(Buyables[i].name=='Elder Pledge'?'display:none;':'')+(Buyables[i].name=='Time machine'?'font-size:90%;':'')+'background-image:url(img/'+Buyables[i].pic+'.png);"><b>'+Buyables[i].name+' - <moni></moni> '+Beautify(Buyables[i].price)+'</b><br>'+Buyables[i].desc+''+(amount>0?('<div class="amount">'+amount+'</div>'):'')+'</div>';
     }
     l('store').innerHTML=str;
 	StoreToRebuild=0;
 }
 
-RebuildUpgrades=function() {
+RebuildAchievements=function() {
     var str='';
-    for(var i in Upgrades) {
-        str+='<div class="upgrades" id="buy'+Upgrades[i].name+'" onclick="BuyUpgrade(\''+Upgrades[i].name+'\');" style="background-image:url(img/'+Upgrades[i].pic+'.png)">';
+    for(var i in Achievements) {
+        str+='<div title="'+Achievements[i].name+'<br><br>'+Achievements[i].desc+'" id="'+Achievements[i].name+'" style="'+(Achievements[i].name=='Elder Pledge'?'display:none;':'')+(Achievements[i].name=='Time machine'?'font-size:90%;':'')+'background-image:url(img/'+Achievements[i].pic+'.png);display:none;"></div>';
     }
     l('shop').innerHTML+=str;
-    UpgradesToRebuild=0;
+    AchievementsToRebuild=0;
 }
 
 var buyClick=new Audio('snd/buy1.wav');
@@ -233,23 +244,21 @@ Buy=function(what) {
     Buyables[what].Buy();
 }
 
-Upgrades=[];
-Upgrade=function(name,desc,pic,price) {
+Achievements=[];
+Achievement=function(name,desc,pic) {
     this.name=name;
     this.desc=desc;
     this.pic=pic;
-    this.price=price;
-    Upgrades[name]=this;
-
-    this.Buy=function() {
-        if(Trees>=this.price) {
-            Trees-=this.price;
-            l('name').display='none';
-            UpgradesToRebuild=1;
-        }
-    }
-    UpgradesToRebuild=1;
+    Achievements[name]=this;
+    AchievementsToRebuild=1;
 }
+
+/*new Achievement('First tree','clicked the tree once.','tree');
+new Achievement('One hundred trees','clicked the tree one hundred times.','tree');
+new Achievement('One apple','bought one apple from the store.','apple');
+
+new Achievement('50 TpS','reach 50 trees per second.','tree');
+new Achievement('100 TpS','reach 100 trees per second.','tree');*/
 
 
 new Buyable('Apple','Grows trees from apple seeds.','apple',15,0.1,function(){Apples++;});
@@ -261,9 +270,7 @@ new Buyable('Anti Matter','Turns black matter into trees.','antimatter',6000,20,
 new Buyable('Luck Maker','Grows trees from apple seeds.','luckmaker',12000,30,function(){LuckMakers++;});
 new Buyable('Trident','Kills tree entities lost in the sea.','trident',20000,60,function(){Tridents++;});
 new Buyable('Stormcaller','Plants trees when there is a storm.','stormcaller',28000,80,function(){Stormcallers++;});
-
-// TOOD:
-//new Upgrade('1 Apple upgrade','Plants trees when there is a storm.','apple',28000);
+//new Buyable('Rocket','Grabs trees from other planets.','shipment',48000,200,function(){Rockets++;});
 
 Pops=[];
 Pop=function(el,str) {
@@ -278,13 +285,11 @@ Pop=function(el,str) {
 var appleImg = document.createElement('img');
 appleImg.src = 'img/apple.png';
 appleImg.style.position='absolute';
-appleImg.style.zIndex="10";
+appleImg.style.zIndex="1";
 appleImg.style.width='16px';
 appleImg.style.height='16px';
 appleImg.style.userSelect='none';
 appleImg.style.webkitUserSelect='none';
-
-
 
 spawnApple=function () {
     var apple = appleImg.cloneNode();
@@ -320,7 +325,38 @@ checkApples=function() {
     }
 }
 
+CheckAchievements=function() {
+    if(TreesClicked>=1) {
+        l('First tree').style.display='block';
+    }
+    if(TreesClicked>=100) {
+        l('One hundred trees').style.display='block';
+    }
 
+    if(TpS>=50) {
+        l('50 TpS').style.display='block';
+    }
+    if(TpS>=100) {
+        l('100 TpS').style.display='block';
+    }
+
+    if(Apples>=1) {
+        l('One apple').style.display='block';
+    }
+
+    for(var i in Achievements) {
+        l(''+Achievements[i].name).addEventListener('mouseenter', showTooltip);
+    }
+
+}
+
+
+ChangeName=function() {
+    var name=prompt('Change your factories name.');
+    if(name!='0'&&name) {
+        l('factoryName').innerHTML=name+'\'s Factory';
+    }
+}
 
 Main=function() {
     if(StoreToRebuild) {
@@ -328,10 +364,13 @@ Main=function() {
         StoreToRebuild=0;
     }
 
-    if(UpgradesToRebuild) {
-        RebuildUpgrades();
-        UpgradesToRebuild=0;
+    if(AchievementsToRebuild) {
+        RebuildAchievements();
+        AchievementsToRebuild=0;
     }
+
+
+    //CheckAchievements();
 
     if(ParticlesOn) {
         checkApples();
@@ -363,6 +402,7 @@ Main=function() {
 
 
     l('trees').innerHTML=Beautify(Trees)+' trees';
+    l('treeClicked').innerHTML='tree clicked : '+Beautify(TreesClicked);
 
     var floater=Math.round(TpS*10-Math.floor(TpS)*10);
 	tps=Beautify(TpS)+(floater?('.'+floater):'');
@@ -403,7 +443,7 @@ function showTooltip(event) {
     const tooltip = document.createElement('div');
     tooltip.classList.add('tooltip');
     tooltip.id='tooltip';
-    tooltip.innerText = event.target.title;
+    tooltip.innerHTML = event.target.title;
     document.body.appendChild(tooltip);
     tooltip.style.left = event.pageX + 'px';
     tooltip.style.top = event.pageY + 'px';

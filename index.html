@@ -1,7 +1,4 @@
-<!--
-    are you looking at the source code cheater?
-    :()
--->
+<!-- hey, you're looking at the source code cheater ;) -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,15 +15,17 @@
         <a id="running-version">running v.<span id="version">1.2.3</span></a>
         <a href="/arthur/index.html" id="homepage" title="My home page, if you're interested in some other games." style="color:#fff;">Made by <u>Arthur Lumertz</u> | 4/26/23</a>
         <a href="/index.html" id="dtthnet" title="Back to our homepage." style="color:#fff;">DTTHNET</a>
-        <a id="othergames" class="important" title="Some of my other games I have made.">Check out my other games!</a>
+        <a id="othergames" class="important" title="If you're interested in seeing how it's made." href="https://www.github.com/arthurlumertz/tree-simulator/" target="_blank">Source code</a>
     </div>
     <div id="game">
         <div id="rightPanel">
-            <div id="shop">SHOP</div>
-            <div class="tabcontent" id="shop"></div>
+            <p id="header">SHOP</p>
+            <div id="shop"></div>
             <div id="store"></div>
         </div>
+        <div id="separatorLeft"></div>
         <div id="middle">
+            <div id="factoryName" onmouseup="ChangeName();">Apple's Factory</div>
             <div id="comment">Loading..</div>
             <div id="treeContainer">
                 <div id="trees"></div>
@@ -34,6 +33,7 @@
             </div>
             <div id="bigTree" onmouseup="ClickTree();"></div>
         </div>
+        <div id="separatorRight"></div>
         <div id="leftPanel">
             <div class="tabcontent">
                 <span class="menu" onclick="Save();">Save</span>
@@ -44,6 +44,8 @@
                 <span class="menu" id="toggleNumbers" onclick="ToggleNumbers();">Numbers On</span>
                 <!--<span class="menu" id="toggleFlashing" onclick="ToggleFlashing();">Flashing On</span>-->
                 <span class="menu" id="toggleParticles" onclick="ToggleParticles();">Particles On</span>
+                <br><br>
+                <span id="treeClicked" style="display:none;">tree clicked : 0</span>
             </div>
         </div>
         <div id="treeFloor"></div>

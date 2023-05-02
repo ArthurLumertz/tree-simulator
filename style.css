@@ -13,9 +13,7 @@ body {
 }
 
 body.inverted {
-    color:#000;
-    background-color:#fff;
-    filter:invert(100%);
+    filter:brightness(150%);
 }
 
 * {
@@ -38,6 +36,7 @@ body.inverted {
     width:100%;
     height:17px;
     z-index:10000000;
+    box-shadow:0px 2px 30px #000;
 }
 
 #footer>a {
@@ -71,7 +70,7 @@ body.inverted {
     z-index: 1;
     background:url(img/darkNoise.jpg),#000;
     color: white;
-    width:170px;
+    width:200px;
     padding: 10px;
     border:1px solid #fff;
     pointer-events:none;
@@ -92,9 +91,10 @@ body.inverted {
     font-size:16px;
     left:-200px;
     top:-115px;
+    padding:2px;
     background-color:#22222260;
-    border-radius:18px;
-    box-shadow:0px 0px 5px #000 inset;
+    border-radius:8px;
+    /*box-shadow:0px 0px 5px #000 inset;*/
     text-shadow:1px 1px 2px #000;
     text-align: center;
     z-index:10000000;
@@ -106,7 +106,7 @@ body.inverted {
     left:-200px;
     text-align: center;
     font-size:16px;
-    background:#22222260;
+    /*background:#22222260;*/
     padding:5px;
     top:-50px;
     text-shadow:1px 1px 2px #000;
@@ -127,16 +127,24 @@ body.inverted {
     top:50px;
     background:url(img/tree.png) no-repeat;
     z-index:1000;
-    animation:all 0.2s ease-in-out;
     cursor: pointer;
 }
 
 #bigTree:hover {
-    transform:scale(1.05);
+    transform:scale(1.1);
+    filter:brightness(110%);
 }
 
 #bigTree:active {
     transform:scale(1.0);
+    filter:brightness(90%);
+}
+
+@keyframes wobble {
+    0% { transform:scale(1.0); }
+    40% { transform:scale(1.2); }
+    60% { transform:scale(1.0); }
+    80% { transform:scale(1.1); }
 }
 
 #rightPanel {
@@ -144,10 +152,11 @@ body.inverted {
     top:25px;
     right:0;
     background:url(img/darkNoise.jpg),#333;
+    background-size:100% 100%,cover;
     border-left:1px solid #000;
     height:100vh;
     z-index:1000;
-    overflow-y:auto;
+    overflow:auto;
 }
 
 #leftPanel {
@@ -155,10 +164,10 @@ body.inverted {
     top:25px;
     left:0;
     background:url(img/darkNoise.jpg),#333;
-    border-left:1px solid #000;
+    border-right:1px solid #000;
     height:100vh;
     z-index:1000;
-    overflow-y:auto;
+    overflow:hidden;
 }
 
 #leftPanel>div {
@@ -189,7 +198,6 @@ body.inverted {
     background-color:#444;
 }
 
-
 #store>div.grayed {
     background-color:#222;
     color:#f00;
@@ -203,6 +211,23 @@ body.inverted {
 	font-size:48px;
 	color:#000;
 	opacity:0.2;
+}
+
+#shop {
+    position:relative;
+}
+
+#shop>div {
+    background:rgba(255,255,255,0) no-repeat;
+    width:32px;
+    height:32px;
+    background-size:32px;
+    padding:5px;
+    margin:2px;
+    box-shadow:0px 0px 5px #fff inset;
+    background-size:cover;
+    border:1px solid #ddd;
+    z-index: 100000000000000000;
 }
 
 #treeFloor {
@@ -236,6 +261,7 @@ moni {
     display:block;
     cursor:pointer;
     text-shadow:0px 0px 3px #000;
+    border-bottom:1px solid #000;
     font-weight:bold;
 }
 
@@ -243,17 +269,53 @@ moni {
     background:rgba(255,255,255,0.75);
 }
 
-#shop {
+#rightPanel>#header {
     font-size:2em;
     font-weight:bold;
     text-align: center;
     padding:10px 0px 0px 0px;
 }
 
-#shop>div {
-    position:relative;
-    background-size:32px;
-    z-index: 100000000000000000;
+#factoryName {
+    position:absolute;
+    text-align:center;
+    font-size:14px;
+    font-weight:500;
+    width:400px;
+    left:-200px;
+    top:-155px;
+    text-shadow:0px 0px 3px #000;
+}
+
+#factoryName:hover {
+    text-shadow:
+        0px 0px 2px #f00,
+        0px 0px 4px #0f0,
+        0px 0px 6px #00f;
+    cursor:pointer;
+}
+
+
+#separatorLeft {
+    width:16px;
+    height:100%;
+    background:#85513d;
+    border-right:1px solid #000;
+    box-shadow:2px 0px 30px #000;
+    position:absolute;
+    left:257px;
+    z-index:10000;
+}
+
+#separatorRight {
+    width:16px;
+    height:100%;
+    background:#85513d;
+    border-left:1px solid #000;
+    box-shadow:-2px 0px 30px #000;
+    position:absolute;
+    right:331px;
+    z-index:10000;
 }
 
 #pops {

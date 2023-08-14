@@ -1,7 +1,7 @@
 function l(what) {return document.getElementById(what);}
 
 Game=l('game');
-Version='1.2.5 pre-release';
+Version='1.2.5 pre-release (updating sept)';
 l('version').innerHTML=Version;
 l('running-version').title='Running<br>Tree Simulator v.'+Version+'<br>Out: Apr, 27 2023';
 console.log('== are you here to hack in trees? ==');

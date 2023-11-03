@@ -1,9 +1,11 @@
 function l(what) {return document.getElementById(what);}
 
 Game=l('game');
-Version='1.2.5';
-l('version').innerHTML=Version;
-l('running-version').title='Running<br>Tree Simulator v.'+Version+'<br>Out: Apr, 27 2023';
+Version='1.2.5_01';
+document.querySelectorAll("#version").forEach(function(e) {
+    e.innerHTML=Version;
+});
+l('running-version').title='Running<br>Tree Simulator v.'+Version+'<br>Out: Nov, 3 2023';
 console.log('== are you here to hack in trees? ==');
 
 function Beautify(what) { //turns 9999999 into 9,999,999
@@ -73,6 +75,31 @@ importSave=function() {
     if(save && save!='') ImportResponse('1|'+save);
     Save();
 }
+
+showOptions=function() {
+    l("options").classList.remove("hidden");
+    l("stats").classList.add("hidden");
+
+    l("stats-btn").classList.remove("selected");
+    l("options-btn").classList.add("selected");
+}
+
+showStats=function() {
+    l("stats").classList.remove("hidden");
+    l("options").classList.add("hidden");
+
+    l("options-btn").classList.remove("selected");
+    l("stats-btn").classList.add("selected");
+}
+
+closeModal=function() {
+    l("modal").style.display = "none";
+}
+
+document.addEventListener("click", function(e) {
+    e.preventDefault();
+    l("modal").style.display = "none";
+});
 
 exportSave=function() {
     var save=prompt('Copypaste this text and keep it somewhere safe! (yes, it\'s easy to edit - but remember : cheated trees taste terrible!)',MakeSaveString());
@@ -406,9 +433,12 @@ Main=function() {
 
     if(T%30==0) Trees+=TpS;
 
-
-    l('trees').innerHTML=Beautify(Trees)+' trees';
-    l('treeClicked').innerHTML='tree clicked : '+Beautify(TreesClicked);
+    document.querySelectorAll("#trees").forEach(function(e) {
+        e.innerHTML=Beautify(Trees);
+    });
+    
+    l('treeClicked').innerHTML=Beautify(TreesClicked);
+    l('apocalypse').innerHTML=(AppleApocalypse ? false : true);
 
     var floater=Math.round(TpS*10-Math.floor(TpS)*10);
 	tps=Beautify(TpS)+(floater?('.'+floater):'');
@@ -442,7 +472,6 @@ Load();
 
 l('othergames').addEventListener('mouseenter', showTooltip);
 l('homepage').addEventListener('mouseenter', showTooltip);
-l('dtthnet').addEventListener('mouseenter', showTooltip);
 l('running-version').addEventListener('mouseenter', showTooltip);
 
 function showTooltip(event) {

@@ -1,4 +1,13 @@
-body {
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: hsla(0,0%,100%,.1)
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: hsla(0,0%,100%,.3);
+}
+
+html, body {
     padding:0;
     margin:0;
     width:100%;
@@ -35,7 +44,7 @@ body.inverted {
     padding:3px;
     width:100%;
     height:17px;
-    z-index:10000000;
+    z-index:997;
     box-shadow:0px 2px 30px #000;
 }
 
@@ -67,14 +76,13 @@ body.inverted {
 
 .tooltip {
     position: absolute;
-    z-index: 1;
     background:url(img/darkNoise.jpg),#000;
     color: white;
     width:200px;
     padding: 10px;
     border:1px solid #fff;
     pointer-events:none;
-    z-index:100000000000000;
+    z-index:997;
     box-shadow:1px 1px 5px #000;
 }
 
@@ -97,7 +105,7 @@ body.inverted {
     /*box-shadow:0px 0px 5px #000 inset;*/
     text-shadow:1px 1px 2px #000;
     text-align: center;
-    z-index:10000000;
+    z-index:997;
 }
 
 #treeContainer {
@@ -111,12 +119,12 @@ body.inverted {
     top:-50px;
     text-shadow:1px 1px 2px #000;
     font-weight:bold;
-    z-index:10000000;
+    z-index:997;
 }
 
-#trees,#tps {
+#treesContainer,#tps {
     position:relative;
-    z-index:1000;
+    z-index:997;
 }
 
 #bigTree {
@@ -126,7 +134,7 @@ body.inverted {
     left:-64px;
     top:50px;
     background:url(img/tree.png) no-repeat;
-    z-index:1000;
+    z-index:997;
     cursor: pointer;
 }
 
@@ -149,13 +157,13 @@ body.inverted {
 
 #rightPanel {
     position:absolute;
-    top:25px;
+    top:0px;
     right:0;
     background:url(img/darkNoise.jpg),#333;
     background-size:100% 100%,cover;
     border-left:1px solid #000;
     height:100vh;
-    z-index:1000;
+    z-index:997;
     overflow:auto;
 }
 
@@ -166,7 +174,7 @@ body.inverted {
     background:url(img/darkNoise.jpg),#333;
     border-right:1px solid #000;
     height:100vh;
-    z-index:1000;
+    z-index:997;
     overflow:hidden;
 }
 
@@ -227,7 +235,7 @@ body.inverted {
     box-shadow:0px 0px 5px #fff inset;
     background-size:cover;
     border:1px solid #ddd;
-    z-index: 100000000000000000;
+    z-index: 997;
 }
 
 #treeFloor {
@@ -304,7 +312,7 @@ moni {
     box-shadow:2px 0px 30px #000;
     position:absolute;
     left:257px;
-    z-index:10000;
+    z-index:977;
 }
 
 #separatorRight {
@@ -315,14 +323,14 @@ moni {
     box-shadow:-2px 0px 30px #000;
     position:absolute;
     right:331px;
-    z-index:10000;
+    z-index:977;
 }
 
 #pops {
     position:absolute;
     left:0px;
     top:0px;
-    z-index:1000000;
+    z-index:977;
     pointer-events:none;
 }
 
@@ -334,4 +342,116 @@ moni {
     font-size:20px;
     text-align: center;
     text-shadow:0px 0px 5px #000;
+}
+
+.container {
+    display: flex;
+    margin-top: 6px;
+    height: 32px !important;
+}
+
+.container button {
+    width: 100%;
+    height: 100%;
+    background: #333;
+    color: #fff;
+    border: 1px solid #FFD700;
+    font-size: 1.25rem;
+}
+
+.container button:hover {
+    background: #444;
+}
+
+.container button.selected {
+    background: #666;
+}
+
+.hidden {
+    display: none;
+}
+
+.tabcontent .spacing {
+    margin-left: 6px;
+}
+
+.tabcontent .spacing > p, .tabcontent .spacing p span {
+    font-size: 1.10rem !important;
+}
+
+.tabcontent .spacing p {
+    color: #999;
+}
+
+.tabcontent .spacing p span {
+    color: #fff;
+}
+
+.backdrop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 998;
+}
+
+#center-modal {
+    position: absolute;
+    width: 0;
+    left: 50%;
+    top: 128px;
+}
+
+#modal-content {
+    position: absolute;
+    width: 320px;
+    left: -160px;
+    background: url(img/darkNoise.jpg);
+    color: #fff;
+    border: 1px solid #FFD700;
+    padding: 2px 12px;
+    box-shadow: 0 2px 16px #222;
+    z-index: 999;
+}
+
+#modal-content .header {
+    font-size: 1.25rem !important;
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+}
+
+.flex {
+    display: flex;
+}
+
+.ms-auto {
+    margin-inline-start: auto;
+}
+
+.me-auto {
+    margin-inline-end: auto;
+}
+
+.mx-auto {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}
+
+.close-button {
+    position: absolute;
+    color: #ccc;
+    top: -16px;
+    right: 16px;
+    font-size: 2rem !important;
+}
+
+.close-button:hover {
+    color: #fff;
+}
+
+#modal-content .modal-p {
+    line-height: 18px;
 }

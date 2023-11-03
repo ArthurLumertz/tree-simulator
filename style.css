@@ -134,7 +134,7 @@ body.inverted {
     left:-64px;
     top:50px;
     background:url(img/tree.png) no-repeat;
-    z-index:997;
+    z-index:500;
     cursor: pointer;
 }
 
@@ -330,7 +330,7 @@ moni {
     position:absolute;
     left:0px;
     top:0px;
-    z-index:999;
+    z-index:929;
     pointer-events:none;
 }
 

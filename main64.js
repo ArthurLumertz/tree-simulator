@@ -1,7 +1,7 @@
 function l(what) {return document.getElementById(what);}
 
 Game=l('game');
-Version='1.2.5 pre-release (updating sept)';
+Version='1.2.5';
 l('version').innerHTML=Version;
 l('running-version').title='Running<br>Tree Simulator v.'+Version+'<br>Out: Apr, 27 2023';
 console.log('== are you here to hack in trees? ==');
@@ -41,6 +41,7 @@ AchievementsToRebuild=0;
 NumbersOn=1;
 FlashingOn=1;
 ParticlesOn=1;
+AudioOn=1;
 
 T=0;
 Loaded=0;
@@ -60,6 +61,11 @@ ToggleFlashing=function() {
 ToggleParticles=function() {
     if(ParticlesOn) {ParticlesOn=0;l('toggleParticles').innerHTML='Particles Off';}
     else if(!ParticlesOn) {ParticlesOn=1;l('toggleParticles').innerHTML='Particles On';}
+}
+
+ToggleAudio=function() {
+    if(AudioOn) {AudioOn=0;l('toggleAudio').innerHTML='Audio Off';}
+    else if(!AudioOn) {AudioOn=1;l('toggleAudio').innerHTML='Audio On';}
 }
 
 importSave=function() {
@@ -181,7 +187,7 @@ ClickTree=function() {
     TreesClicked++;
     if(treeClick) treeClick.remove();
     treeClick=new Audio('snd/click1.wav');
-    treeClick.play();
+    if (AudioOn) treeClick.play();
     if (Pops.length<260 && NumbersOn) new Pop('bigTree','+'+CpS);
 }
 
@@ -232,7 +238,7 @@ Buyable=function(name,desc,pic,price,tps,func) {
             this.func(1);
             StoreToRebuild=1;
 
-            buyClick.play();
+            if (AudioOn) buyClick.play();
 
             TpS+=this.tps;
         }
@@ -440,6 +446,8 @@ l('dtthnet').addEventListener('mouseenter', showTooltip);
 l('running-version').addEventListener('mouseenter', showTooltip);
 
 function showTooltip(event) {
+    event.preventDefault();
+
     const tooltip = document.createElement('div');
     tooltip.classList.add('tooltip');
     tooltip.id='tooltip';

@@ -330,7 +330,7 @@ moni {
     position:absolute;
     left:0px;
     top:0px;
-    z-index:977;
+    z-index:999;
     pointer-events:none;
 }
 

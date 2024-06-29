@@ -1,6 +1,6 @@
 function l(what) {return document.getElementById(what);}
 
-Version = "2.0.2";
+Version = "2.0.3";
 const versions = document.querySelectorAll("#version");
 
 versions.forEach((e) => {
@@ -25,11 +25,15 @@ Farms = 0;
 Mines = 0;
 Factories = 0;
 Machines = 0;
-AntiMatters = 0;
 LuckMakers = 0;
 Tridents = 0;
 StormCallers = 0;
 Shipments = 0;
+AlchemyLabs = 0;
+Portals = 0;
+AntiMatters = 0;
+FractalEngines = 0;
+
 Loaded = 0;
 
 console.log('======== are you here to hack in trees? ========');
@@ -159,13 +163,43 @@ new Buyable(
     }
 );
 new Buyable(
+    "Alchemy Lab",
+    "Turns gold into trees",
+    "alchemylab",
+    75000000000,
+    1600000,
+    function () {
+        AlchemyLabs++;
+    }
+);
+new Buyable(
+    "Portal",
+    "Opens the door to the TreeVerse",
+    "portal",
+    1000000000000,
+    10000000,
+    function () {
+        Portals++;
+    }
+);
+new Buyable(
     "Anti Matter",
-    "Turns Anti Matter into Trees",
+    "Turns Anti Matter into trees",
     "antimatter",
     170000000000000,
-    430000000 ,
+    430000000,
     function () {
         AntiMatters++;
+    }
+);
+new Buyable(
+    "Fractal Engine",
+    "Turns trees into more trees",
+    "fractalengine",
+    310000000000000000,
+    150000000000,
+    function () {
+        FractalEngines++;
     }
 );
 
@@ -182,7 +216,10 @@ RebuildStore = function () {
         if (Buyables[i].name == "Trident") amount = Tridents;
         if (Buyables[i].name == "Storm Caller") amount = StormCallers;
         if (Buyables[i].name == "Shipment") amount = Shipments;
+        if (Buyables[i].name == "Alchemy Lab") amount = AlchemyLabs;
+        if (Buyables[i].name == "Portal") amount = Portals;
         if (Buyables[i].name == "Anti Matter") amount = AntiMatters;
+        if (Buyables[i].name == "Fractal Engine") amount = FractalEngines;
         str +=
             '<div id="buy' +
             Buyables[i].name +
@@ -313,12 +350,13 @@ ImportResponse = function(response) {
         Mines = parseFloat(r[i]);i++;
         Factories = parseFloat(r[i]);i++;
         Machines = parseFloat(r[i]);i++;
-        AntiMatters = parseFloat(r[i]);i++;
         Tridents = parseFloat(r[i]);i++;
         StormCallers = parseFloat(r[i]);i++;
         Shipments = parseFloat(r[i]);i++;
-        DoubleCpSUpgrade = parseFloat(r[i]);i++;
-        IncreaseUpgrade = parseFloat(r[i]);
+        AlchemyLabs = parseFloat(r[i]);i++;
+        Portals = parseFloat(r[i]);i++;
+        AntiMatters = parseFloat(r[i]);i++;
+        FractalEngines = parseFloat(r[i]);i++;
 
         StoreToRebuild=1;
         UpgradesToRebuild=1;
@@ -343,12 +381,13 @@ MakeSaveString=function() {
     parseFloat(Mines)+'|'+parseFloat(Buyables['Mine'].price)+'|'+
     parseFloat(Factories)+'|'+parseFloat(Buyables['Factory'].price)+'|'+
     parseFloat(Machines)+'|'+parseFloat(Buyables['Machine'].price)+'|'+
-    parseFloat(AntiMatters)+'|'+parseFloat(Buyables['Anti Matter'].price)+'|'+
     parseFloat(Tridents)+'|'+parseFloat(Buyables['Trident'].price)+'|'+
     parseFloat(StormCallers)+'|'+parseFloat(Buyables['Storm Caller'].price)+'|'+
     parseFloat(Shipments)+'|'+parseFloat(Buyables['Shipment'].price)+"|"+
-    parseFloat(DoubleCpSUpgrade)+'|'+
-    parseFloat(IncreaseUpgrade);
+    parseFloat(AlchemyLabs)+'|'+parseFloat(Buyables['Alchemy Lab'].price)+"|"+
+    parseFloat(Portals)+'|'+parseFloat(Buyables['Portal'].price)+'|'+
+    parseFloat(AntiMatters)+'|'+parseFloat(Buyables['Anti Matter'].price)+"|"+
+    parseFloat(FractalEngines)+'|'+parseFloat(Buyables['Fractal Engine'].price);
     return str;
 }
 
@@ -367,12 +406,13 @@ LoadResponse=function(response) {
         Mines = parseFloat(r[i]);i++; Buyables["Mine"].price = parseFloat(r[i]);i++; 
         Factories = parseFloat(r[i]);i++; Buyables["Factory"].price = parseFloat(r[i]);i++; 
         Machines = parseFloat(r[i]);i++; Buyables["Machine"].price = parseFloat(r[i]);i++; 
-        AntiMatters = parseFloat(r[i]);i++; Buyables["Anti Matter"].price = parseFloat(r[i]);i++; 
         Tridents = parseFloat(r[i]);i++; Buyables["Trident"].price = parseFloat(r[i]);i++; 
         StormCallers = parseFloat(r[i]);i++; Buyables["Storm Caller"].price = parseFloat(r[i]);i++; 
-        Shipments = parseFloat(r[i]);i++; Buyables["Shipment"].price = parseFloat(r[i]);i++;
-        DoubleCpSUpgrade = parseFloat(r[i]);i++;
-        IncreaseUpgrade = parseFloat(r[i]);
+        Shipments = parseFloat(r[i]);i++; Buyables["Shipment"].price = parseFloat(r[i]);i++; 
+        AlchemyLabs = parseFloat(r[i]);i++; Buyables["Alchemy Lab"].price = parseFloat(r[i]);i++; 
+        Portals = parseFloat(r[i]);i++; Buyables["Portal"].price = parseFloat(r[i]);i++; 
+        AntiMatters = parseFloat(r[i]);i++; Buyables["Anti Matter"].price = parseFloat(r[i]);i++; 
+        FractalEngines = parseFloat(r[i]);i++; Buyables["Fractal Engine"].price = parseFloat(r[i]);
 
         StoreToRebuild=1;
         UpgradesToRebuild=1;
@@ -391,10 +431,10 @@ Save = function() {
     str='TreeSimulatorSave='+escape(str)+'; expires='+now.toUTCString+';';
     document.cookie=str;
     if (document.cookie.indexOf('TreeSimulatorSave') < 0)
-        new Pop("floor", "Error while saving! Please export save instead.");
+        new Pop("treeFloor", "Error while saving! Please export save instead.");
 
     SaveTimer=30*60;
-    new Pop("floor", "Saved");
+    new Pop("treeFloor", "Saved");
 }
 
 Load = function() {
@@ -403,7 +443,7 @@ Load = function() {
         str='1|'+unescape(document.cookie.split('TreeSimulatorSave=')[1]);
     
     LoadResponse(str);
-    new Pop("floor", "Loaded");
+    new Pop("treeFloor", "Loaded");
 }
 
 Reset=function() {
@@ -465,6 +505,13 @@ Main = function () {
             l("buy" + Upgrades[i].name).className = "grayed";
         }
     }
+
+    if (TpS >= 100000)
+        l("treeFloor").classList.add("large");
+    if (TpS >= 50000)
+        l("treeFloor").classList.add("medium");
+    if (TpS <= 50000)
+        l("treeFloor").classList.add("small");
 
     l("treeClicks").innerHTML = Beautify(TreeClicks);
 

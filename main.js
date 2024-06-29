@@ -1,6 +1,6 @@
 function l(what) {return document.getElementById(what);}
 
-Version = "2.0.3";
+Version = "2.0.4";
 const versions = document.querySelectorAll("#version");
 
 versions.forEach((e) => {
@@ -70,7 +70,7 @@ TreeClick = function (e) {
     TreeClicks++;
 
     if (AudioEnabled) new Audio("snd/click1.wav").play();
-    new Pop("treeContainer", "+" + CpS);
+    new Pop("treeContainer", "+" + Beautify(CpS));
 }
 
 Earn = function(amount) {
@@ -271,11 +271,11 @@ Upgrade = function(name, desc, pic, price, mul, func) {
     }
 }
 
-new Upgrade("Double CpS", "Doubles the CpS", "cursor", 100, 2, function() {
+new Upgrade("Double CpS", "Doubles the CpS", "cursor", 100, 10, function() {
     CpS *= 2;
 });
 
-new Upgrade("Trees Increase", "Adds 5% to TpS", "tree", 10000000, 5, function() {
+new Upgrade("Trees Increase", "Adds 5% to TpS", "tree", 10000000, 16, function() {
     TpS += (TpS * 0.05);
 });
 

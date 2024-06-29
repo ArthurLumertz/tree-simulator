@@ -1,6 +1,6 @@
 function l(what) {return document.getElementById(what);}
 
-Version = "2.0.1";
+Version = "2.0.1_01";
 const versions = document.querySelectorAll("#version");
 
 versions.forEach((e) => {
@@ -310,20 +310,20 @@ ImportResponse = function(response) {
         Trees = parseFloat(r[i]);i++;
         TpS = parseFloat(r[i]);i++;
         CpS = parseFloat(r[i]);i++;
-        TotalTrees = parseInt(r[i]);i++;
-        TreeClicks = parseInt(r[i]);i++;
-        Apples = parseInt(r[i]);i++;
-        Trucks = parseInt(r[i]);i++;
-        Farms = parseInt(r[i]);i++;
-        Mines = parseInt(r[i]);i++;
-        Factories = parseInt(r[i]);i++;
-        Machines = parseInt(r[i]);i++;
-        AntiMatters = parseInt(r[i]);i++;
-        Tridents = parseInt(r[i]);i++;
-        StormCallers = parseInt(r[i]);i++;
-        Shipments = parseInt(r[i]);i++;
-        DoubleCpSUpgrade = parseInt(r[i]);i++;
-        IncreaseUpgrade = parseInt(r[i]);
+        TotalTrees = parseFloat(r[i]);i++;
+        TreeClicks = parseFloat(r[i]);i++;
+        Apples = parseFloat(r[i]);i++;
+        Trucks = parseFloat(r[i]);i++;
+        Farms = parseFloat(r[i]);i++;
+        Mines = parseFloat(r[i]);i++;
+        Factories = parseFloat(r[i]);i++;
+        Machines = parseFloat(r[i]);i++;
+        AntiMatters = parseFloat(r[i]);i++;
+        Tridents = parseFloat(r[i]);i++;
+        StormCallers = parseFloat(r[i]);i++;
+        Shipments = parseFloat(r[i]);i++;
+        DoubleCpSUpgrade = parseFloat(r[i]);i++;
+        IncreaseUpgrade = parseFloat(r[i]);
 
         StoreToRebuild=1;
         UpgradesToRebuild=1;
@@ -340,20 +340,20 @@ MakeSaveString=function() {
     parseFloat(Trees)+'|'+
     parseFloat(TpS)+'|'+
     parseFloat(CpS)+"|"+
-    parseInt(TotalTrees)+"|"+
-    parseInt(TreeClicks)+'|'+
-    parseInt(Apples)+'|'+parseInt(Buyables['Apple'].price)+'|'+
-    parseInt(Trucks)+'|'+parseInt(Buyables['Truck'].price)+'|'+
-    parseInt(Farms)+'|'+parseInt(Buyables['Farm'].price)+'|'+
-    parseInt(Mines)+'|'+parseInt(Buyables['Mine'].price)+'|'+
-    parseInt(Factories)+'|'+parseInt(Buyables['Factory'].price)+'|'+
-    parseInt(Machines)+'|'+parseInt(Buyables['Machine'].price)+'|'+
-    parseInt(AntiMatters)+'|'+parseInt(Buyables['Anti Matter'].price)+'|'+
-    parseInt(Tridents)+'|'+parseInt(Buyables['Trident'].price)+'|'+
-    parseInt(StormCallers)+'|'+parseInt(Buyables['Storm Caller'].price)+'|'+
-    parseInt(Shipments)+'|'+parseInt(Buyables['Shipment'].price)+"|"+
-    parseInt(DoubleCpSUpgrade)+'|'+
-    parseInt(IncreaseUpgrade);
+    parseFloat(TotalTrees)+"|"+
+    parseFloat(TreeClicks)+'|'+
+    parseFloat(Apples)+'|'+parseFloat(Buyables['Apple'].price)+'|'+
+    parseFloat(Trucks)+'|'+parseFloat(Buyables['Truck'].price)+'|'+
+    parseFloat(Farms)+'|'+parseFloat(Buyables['Farm'].price)+'|'+
+    parseFloat(Mines)+'|'+parseFloat(Buyables['Mine'].price)+'|'+
+    parseFloat(Factories)+'|'+parseFloat(Buyables['Factory'].price)+'|'+
+    parseFloat(Machines)+'|'+parseFloat(Buyables['Machine'].price)+'|'+
+    parseFloat(AntiMatters)+'|'+parseFloat(Buyables['Anti Matter'].price)+'|'+
+    parseFloat(Tridents)+'|'+parseFloat(Buyables['Trident'].price)+'|'+
+    parseFloat(StormCallers)+'|'+parseFloat(Buyables['Storm Caller'].price)+'|'+
+    parseFloat(Shipments)+'|'+parseFloat(Buyables['Shipment'].price)+"|"+
+    parseFloat(DoubleCpSUpgrade)+'|'+
+    parseFloat(IncreaseUpgrade);
     return str;
 }
 
@@ -361,23 +361,23 @@ LoadResponse=function(response) {
     var r = response.split('|');
     if (response != '0' && response && r[0] == '1') {
         var i = 2;
-        Trees = parseInt(r[i]);i++;
-        TpS = parseInt(r[i]);i++;
-        CpS = parseInt(r[i]);i++;
-        TotalTrees = parseInt(r[i]);i++;
-        TreeClicks = parseInt(r[i]);i++;
-        Apples = parseInt(r[i]);i++; Buyables["Apple"].price = parseInt(r[i]);i++; 
-        Trucks = parseInt(r[i]);i++; Buyables["Truck"].price = parseInt(r[i]);i++; 
-        Farms = parseInt(r[i]);i++; Buyables["Farm"].price = parseInt(r[i]);i++; 
-        Mines = parseInt(r[i]);i++; Buyables["Mine"].price = parseInt(r[i]);i++; 
-        Factories = parseInt(r[i]);i++; Buyables["Factory"].price = parseInt(r[i]);i++; 
-        Machines = parseInt(r[i]);i++; Buyables["Machine"].price = parseInt(r[i]);i++; 
-        AntiMatters = parseInt(r[i]);i++; Buyables["Anti Matter"].price = parseInt(r[i]);i++; 
-        Tridents = parseInt(r[i]);i++; Buyables["Trident"].price = parseInt(r[i]);i++; 
-        StormCallers = parseInt(r[i]);i++; Buyables["Storm Caller"].price = parseInt(r[i]);i++; 
-        Shipments = parseInt(r[i]);i++; Buyables["Shipment"].price = parseInt(r[i]);i++;
-        DoubleCpSUpgrade = parseInt(r[i]);i++;
-        IncreaseUpgrade = parseInt(r[i]);
+        Trees = parseFloat(r[i]);i++;
+        TpS = parseFloat(r[i]);i++;
+        CpS = parseFloat(r[i]);i++;
+        TotalTrees = parseFloat(r[i]);i++;
+        TreeClicks = parseFloat(r[i]);i++;
+        Apples = parseFloat(r[i]);i++; Buyables["Apple"].price = parseFloat(r[i]);i++; 
+        Trucks = parseFloat(r[i]);i++; Buyables["Truck"].price = parseFloat(r[i]);i++; 
+        Farms = parseFloat(r[i]);i++; Buyables["Farm"].price = parseFloat(r[i]);i++; 
+        Mines = parseFloat(r[i]);i++; Buyables["Mine"].price = parseFloat(r[i]);i++; 
+        Factories = parseFloat(r[i]);i++; Buyables["Factory"].price = parseFloat(r[i]);i++; 
+        Machines = parseFloat(r[i]);i++; Buyables["Machine"].price = parseFloat(r[i]);i++; 
+        AntiMatters = parseFloat(r[i]);i++; Buyables["Anti Matter"].price = parseFloat(r[i]);i++; 
+        Tridents = parseFloat(r[i]);i++; Buyables["Trident"].price = parseFloat(r[i]);i++; 
+        StormCallers = parseFloat(r[i]);i++; Buyables["Storm Caller"].price = parseFloat(r[i]);i++; 
+        Shipments = parseFloat(r[i]);i++; Buyables["Shipment"].price = parseFloat(r[i]);i++;
+        DoubleCpSUpgrade = parseFloat(r[i]);i++;
+        IncreaseUpgrade = parseFloat(r[i]);
 
         StoreToRebuild=1;
         UpgradesToRebuild=1;

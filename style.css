@@ -99,7 +99,7 @@ body {
 #tree {
   width: 128px;
   height: 128px;
-  background: url(/img/tree.png) no-repeat;
+  background: url(img/tree.png) no-repeat;
   background-size: cover;
 }
 
@@ -118,7 +118,7 @@ body {
   position: absolute;
   width: 320px;
   height: 100vh;
-  background: url(/img/darkNoise.jpg), #222;
+  background: url(img/darkNoise.jpg), #222;
   box-shadow: inset 0 0 12px #000;
   left: calc(100% - 320px);
   color: #ccc;

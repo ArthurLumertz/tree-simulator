@@ -1,6 +1,6 @@
 function l(what) {return document.getElementById(what);}
 
-Version = "2.0.1_01";
+Version = "2.0.2";
 const versions = document.querySelectorAll("#version");
 
 versions.forEach((e) => {
@@ -213,19 +213,20 @@ Buy = function (what) {
 }
 
 Upgrades = [];
-Upgrade = function(name, desc, pic, price, func) {
+Upgrade = function(name, desc, pic, price, mul, func) {
     Upgrades[name] = this;
     this.name = name;
     this.desc = desc;
     this.pic = pic;
     this.func = func;
     this.price = price;
+    this.mul = mul;
 
     this.Buy = function() {
-        if (Trees >= price) {
-            Trees -= price;
-            
+        if (Trees >= this.price) {
+            Trees -= this.price;
             this.func(1);
+            this.price = Math.ceil(this.price * this.mul);
             if (AudioEnabled) new Audio("snd/buy1.wav").play();
 
             UpgradesToRebuild = 1;
@@ -233,18 +234,12 @@ Upgrade = function(name, desc, pic, price, func) {
     }
 }
 
-DoubleCpSUpgrade = 100;
-new Upgrade("Double CpS", "Doubles the CpS", "cursor", DoubleCpSUpgrade, function() {
+new Upgrade("Double CpS", "Doubles the CpS", "cursor", 100, 2, function() {
     CpS *= 2;
-    DoubleCpSUpgrade = Math.ceil(DoubleCpSUpgrade * 2);
-    Upgrades["Double CpS"].price = DoubleCpSUpgrade;
 });
 
-IncreaseUpgrade = 100;
-new Upgrade("Trees Increase", "Adds 5% to TpS", "tree", IncreaseUpgrade, function() {
+new Upgrade("Trees Increase", "Adds 5% to TpS", "tree", 10000000, 5, function() {
     TpS += (TpS * 0.05);
-    IncreaseUpgrade = Math.ceil(IncreaseUpgrade * 5);
-    Upgrades["Trees Increase"].price = IncreaseUpgrade;
 });
 
 BuyUpgrade = function(what) {

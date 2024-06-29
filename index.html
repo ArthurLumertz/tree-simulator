@@ -1,78 +1,68 @@
-<!-- hey, you're looking at the source code cheater ;) -->
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>0 trees - Tree Simulator</title>
-    <link rel="stylesheet" href="style.css?v=1">
-    <link rel="icon" href="img/tree.png">
-</head>
-<body>
-    <div id="footer">
-        <a id="running-version">running v.<span id="version">1.2.3</span></a>
-        <a href="/arthur/index.html" id="homepage" title="My home page, if you're interested in some other games." style="color:#fff;">Made by <u>Arthur Lumertz</u> | 11/3/23</a>
-        <a id="othergames" class="important" title="If you're interested in seeing how it's made." href="https://www.github.com/arthurlumertz/tree-simulator/" target="_blank">Source code</a>
-    </div>
-    <div class="backdrop" id="modal">
-        <div id="center-modal">
-            <div id="modal-content">
-                <p class="header">Welcome!</p>
-                <p class="close-button" onmouseup="closeModal();">&times;</p>
-                <p class="modal-p">Welcome to Tree Simulator!<br><br>Here you create your trees, start growing your economy until people start claiming you are destroying earth.<br><br>Click anywhere to continue</p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tree Simulator - 0 trees</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="shortcut icon" href="img/tree.png" type="image/x-icon">
+    </head>
+    <body>
+        <div id="app">
+            <div id="header">
+                <div data-title="Released: 6/28/2024">Tree simulator <label id="version">Loading...</label></div>
+                <div class="link" data-title="Check out the code in GitHub!" onclick="javascript:document.location=&quot;https://www.github.com/arthurlumertz/tree-simulator/&quot;;">Source code</div>
             </div>
-        </div>
-    </div>
-    <div id="game">
-        <div id="rightPanel">
-            <p id="header">SHOP</p>
-            <div id="shop"></div>
-            <div id="store"></div>
-        </div>
-        <div id="separatorLeft"></div>
-        <div id="middle">
-            <div id="factoryName" onmouseup="ChangeName();">Apple's Factory</div>
-            <div id="comment">Loading..</div>
+            <div id="leftPanel">
+                <h1>Upgrades</h1>
+                <div id="upgrades">Loading</div>
+            </div>
+            <div id="navbar">
+                <div id="settingsBtn" onclick="ShowSettings()">Settings</div>
+                <div id="statsBtn" onclick="ShowStats()">Stats</div>
+                <div id="infoBtn" onclick="ShowInfo()">Info</div>
+            </div>
+            <div class="modal" id="settings">
+                <h1>Settings</h1>
+                <div class="content">
+                    <div id="enableAudio" onclick="ToggleAudio()">Audio ON</div>
+                    <span style="margin-bottom:16px"></span>
+                    <div id="saveGame" onclick="Save()">Save Game</div>
+                    <div id="loadSave" onclick="Load()">Load Game</div>
+                    <div id="exportSave" onclick="ExportSave()">Export save</div>
+                    <div id="importSave" onclick="ImportSave()">Import save</div>
+                    <div id="resetSave" onclick="Reset()">Reset</div>
+                </div>
+            </div>
+            <div class="modal" id="stats">
+                <h1>Statistics</h1>
+                <div class="content">
+                    <p>Running Version : <span id="version">Loading...</span></p>
+                </div>
+            </div>
+            <div class="modal" id="info">
+                <h1>Info</h1>
+                <div class="content">
+                    <p>Trees : <span id="trees1">Loading...</span></p>
+                    <p>Trees p/second : <span id="treesPerSecond1">Loading...</span></p>
+                    <p>Total Trees (this save) : <span id="totalTrees">Loading...</span></p>
+                    <p>Tree clicks : <span id="treeClicks">Loading...</span></p>
+                </div>
+            </div>
             <div id="treeContainer">
-                <div id="treesContainer">
-                    <span id="trees">Loading...</span>
-                    trees
+                <div id="info">
+                    <div id="trees">Loading...</div>
+                    <div id="treesPerSecond">Loading...</div>
                 </div>
-                <div id="tps">Loading...</div>
+                <div id="tree" onclick="TreeClick(event)"></div>
             </div>
-            <div id="bigTree" onmouseup="ClickTree();"></div>
+            <div id="floor"></div>
+            <div id="store">
+                <h1>Store</h1>
+                <div id="buyables">Loading...</div>
+            </div>
+            <div id="pops"></div>   
         </div>
-        <div id="separatorRight"></div>
-        <div id="leftPanel">
-            <div class="container">
-                <button class="options" id="stats-btn" onmouseup="showStats();">Stats</button>
-                <button class="options selected" id="options-btn" onmouseup="showOptions();">Options</button>
-            </div>
-            <div class="tabcontent" id="options">
-                <span class="menu" onclick="Save();">Save</span>
-                <span class="menu" onclick="exportSave();">Export save</span>
-                <span class="menu" onclick="importSave();">Import save</span>
-                <span class="menu" onclick="Reset();">Reset</span>
-                <br><br>
-                <span class="menu" id="toggleNumbers" onmouseup="ToggleNumbers();">Numbers On</span>
-                <!--<span class="menu" id="toggleFlashing" onclick="ToggleFlashing();">Flashing On</span>-->
-                <span class="menu" id="toggleParticles" onmouseup="ToggleParticles();">Particles On</span>
-                <span class="menu" id="toggleAudio" onmouseup="ToggleAudio();">Audio On</span>
-            </div>
-            <div class="tabcontent hidden" id="stats">
-                <div class="spacing">
-                    <p>Trees: <span id="trees">Loading...</span></p>
-                    <p>Tree clicks: <span id="treeClicked">Loading...</span></p>
-                    <p>Apple Apocalypse: <span id="apocalypse">Loading...</span></p>
-                    <p>Running version: <span id="version">Loading...</span></p>
-                </div>
-            </div>
-        </div>
-        <div id="treeFloor"></div>
-        <div id="pops"></div>
-    </div>
-    <script src="main64.js?v=1"></script>
-</body>
+    </body>
+    <script src="main.js"></script>
 </html>

@@ -306,9 +306,9 @@ ImportResponse = function(response) {
     var r = response.split('|');
     if (response != '0' && response && r[0] == '1') {
         var i = 2;
-        Trees = parseInt(r[i]);i++;
-        TpS = parseInt(r[i]);i++;
-        CpS = parseInt(r[i]);i++;
+        Trees = parseFloat(r[i]);i++;
+        TpS = parseFloat(r[i]);i++;
+        CpS = parseFloat(r[i]);i++;
         TotalTrees = parseInt(r[i]);i++;
         TreeClicks = parseInt(r[i]);i++;
         Apples = parseInt(r[i]);i++;
@@ -336,9 +336,9 @@ ResetResponse=function() {
 MakeSaveString=function() {
     var str='';
     str+=Version+'|'+
-    parseInt(Trees)+'|'+
-    parseInt(TpS)+'|'+
-    parseInt(CpS)+"|"+
+    parseFloat(Trees)+'|'+
+    parseFloat(TpS)+'|'+
+    parseFloat(CpS)+"|"+
     parseInt(TotalTrees)+"|"+
     parseInt(TreeClicks)+'|'+
     parseInt(Apples)+'|'+parseInt(Buyables['Apple'].price)+'|'+

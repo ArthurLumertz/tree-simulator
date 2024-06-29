@@ -64,7 +64,7 @@ TreeClick = function (e) {
     TotalTrees += CpS;
     TreeClicks++;
 
-    if (AudioEnabled) new Audio("/snd/click1.wav").play();
+    if (AudioEnabled) new Audio("snd/click1.wav").play();
     new Pop("treeContainer", "+" + CpS);
 }
 
@@ -102,7 +102,7 @@ Buyable = function (name, desc, pic, price, tps, func) {
             this.price = Math.ceil(this.price * 1.1);
             this.func(1);
 
-            if (AudioEnabled) new Audio("/snd/buy1.wav").play();
+            if (AudioEnabled) new Audio("snd/buy1.wav").play();
 
             StoreToRebuild = 1;
         }
@@ -225,7 +225,7 @@ Upgrade = function(name, desc, pic, price, func) {
             Trees -= price;
             
             this.func(1);
-            if (AudioEnabled) new Audio("/snd/buy1.wav").play();
+            if (AudioEnabled) new Audio("snd/buy1.wav").play();
 
             UpgradesToRebuild = 1;
         }

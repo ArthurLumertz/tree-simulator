@@ -336,6 +336,17 @@ moni {
   font-weight: 900;
 }
 
+.modal .content div h1 {
+  color: #fff;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.modal .content div p {
+  color: #ccc;
+}
+
 #pops {
   position:absolute;
   left:0px;

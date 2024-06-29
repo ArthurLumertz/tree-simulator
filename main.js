@@ -1,6 +1,6 @@
 function l(what) {return document.getElementById(what);}
 
-Version = "2.0.0";
+Version = "2.0.1";
 const versions = document.querySelectorAll("#version");
 
 versions.forEach((e) => {
@@ -30,6 +30,7 @@ LuckMakers = 0;
 Tridents = 0;
 StormCallers = 0;
 Shipments = 0;
+Loaded = 0;
 
 console.log('======== are you here to hack in trees? ========');
 
@@ -177,7 +178,7 @@ RebuildStore = function () {
         if (Buyables[i].name == "Farm") amount = Farms;
         if (Buyables[i].name == "Mine") amount = Mines;
         if (Buyables[i].name == "Factory") amount = Factories;
-        if (Buyables[i].name == "Machine") amount = Factories;
+        if (Buyables[i].name == "Machine") amount = Machines;
         if (Buyables[i].name == "Trident") amount = Tridents;
         if (Buyables[i].name == "Storm Caller") amount = StormCallers;
         if (Buyables[i].name == "Shipment") amount = Shipments;
@@ -382,7 +383,9 @@ LoadResponse=function(response) {
         UpgradesToRebuild=1;
     }
 
-    Main();
+    if (!Loaded)
+        Main();
+    Loaded = 1;
 }
 
 SaveTimer = 30 * 60;

@@ -101,6 +101,7 @@ body {
   height: 128px;
   background: url(img/tree.png) no-repeat;
   background-size: cover;
+  cursor: pointer;
 }
 
 #tree:hover {

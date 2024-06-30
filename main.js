@@ -1,6 +1,6 @@
 function l(what) {return document.getElementById(what);}
 
-Version = "2.0.4";
+Version = "2.0.5";
 const versions = document.querySelectorAll("#version");
 
 versions.forEach((e) => {
@@ -36,9 +36,17 @@ FractalEngines = 0;
 
 Loaded = 0;
 
+TreeClickAudio = new Audio("snd/click1.wav");
+BuyAudio = new Audio("snd/buy1.wav");
+
 console.log('======== are you here to hack in trees? ========');
 
 Beautify = function(what) {
+    if (isNaN(what))
+        return;
+    if (what == Infinity)
+        return Infinity;
+
     var str='';
 	what=Math.floor(what);
 	what=(what+'').split('').reverse();
@@ -50,7 +58,7 @@ Beautify = function(what) {
 }
 
 BeautifyShort = function (num) {
-    var suffixes = ["", "K", "M", "B", "T", "Q", "Qi", "Sx", "Sp", "O", "N", "D", "UD", "DD", "TD", "QD", "Qa", "Qi", "Sx", "Sp", "Oc"];
+    var suffixes = ["", "K", "M", "B", "T", "Q", "Qi", "Sx", "Sp", "O", "N", "D", "UD", "DD", "TD", "QD", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Ct", "St", "Nn", "Dc", "Ud", "Td", "Qt", "Qq"];
     var suffixIndex = 0;
 
     num = Math.round(num);
@@ -69,7 +77,7 @@ TreeClick = function (e) {
     TotalTrees += CpS;
     TreeClicks++;
 
-    if (AudioEnabled) new Audio("snd/click1.wav").play();
+    if (AudioEnabled) TreeClickAudio.play();
     new Pop("treeContainer", "+" + Beautify(CpS));
 }
 
@@ -107,7 +115,7 @@ Buyable = function (name, desc, pic, price, tps, func) {
             this.price = Math.ceil(this.price * 1.1);
             this.func(1);
 
-            if (AudioEnabled) new Audio("snd/buy1.wav").play();
+            if (AudioEnabled) BuyAudio.play();
 
             StoreToRebuild = 1;
         }
@@ -264,7 +272,7 @@ Upgrade = function(name, desc, pic, price, mul, func) {
             Trees -= this.price;
             this.func(1);
             this.price = Math.ceil(this.price * this.mul);
-            if (AudioEnabled) new Audio("snd/buy1.wav").play();
+            if (AudioEnabled) BuyAudio.play();
 
             UpgradesToRebuild = 1;
         }
@@ -387,7 +395,9 @@ MakeSaveString=function() {
     parseFloat(AlchemyLabs)+'|'+parseFloat(Buyables['Alchemy Lab'].price)+"|"+
     parseFloat(Portals)+'|'+parseFloat(Buyables['Portal'].price)+'|'+
     parseFloat(AntiMatters)+'|'+parseFloat(Buyables['Anti Matter'].price)+"|"+
-    parseFloat(FractalEngines)+'|'+parseFloat(Buyables['Fractal Engine'].price);
+    parseFloat(FractalEngines)+'|'+parseFloat(Buyables['Fractal Engine'].price)+"|"+
+    parseFloat(Upgrades["Double CpS"].price)+"|"+
+    parseFloat(Upgrades["Trees Increase"].price);
     return str;
 }
 
@@ -412,7 +422,9 @@ LoadResponse=function(response) {
         AlchemyLabs = parseFloat(r[i]);i++; Buyables["Alchemy Lab"].price = parseFloat(r[i]);i++; 
         Portals = parseFloat(r[i]);i++; Buyables["Portal"].price = parseFloat(r[i]);i++; 
         AntiMatters = parseFloat(r[i]);i++; Buyables["Anti Matter"].price = parseFloat(r[i]);i++; 
-        FractalEngines = parseFloat(r[i]);i++; Buyables["Fractal Engine"].price = parseFloat(r[i]);
+        FractalEngines = parseFloat(r[i]);i++; Buyables["Fractal Engine"].price = parseFloat(r[i]);i++;
+        Upgrades["Double CpS"].price = parseFloat(r[i]);i++;
+        Upgrades["Trees Increase"].price = parseFloat(r[i]);
 
         StoreToRebuild=1;
         UpgradesToRebuild=1;

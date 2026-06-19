@@ -543,7 +543,7 @@ Main = function () {
     SaveTimer--;
     if(SaveTimer==0) Save();
 
-    if (T % 30 == 0) Trees += TpS;
+    Trees += TpS / 30;
     T++;
     setTimeout(Main, 1000 / 30);
 }
